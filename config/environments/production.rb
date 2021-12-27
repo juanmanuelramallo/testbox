@@ -1,6 +1,9 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  # Prepare the ingress controller used to receive mail
+  config.action_mailbox.ingress = :sendgrid
+
   config.action_mailer.default_url_options = { host: ENV.fetch("HOST_NAME") }
   config.action_mailer.smtp_settings = {
     address: ENV.fetch("SMTP_SERVER"),
