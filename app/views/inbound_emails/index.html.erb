@@ -22,8 +22,13 @@
         <td class="<%= td_classes %>"><%= email.mail.subject %></td>
         <td class="<%= td_classes %>"><%= (email.text_body || email.mail).decoded.truncate(100) %></td>
         <td class="<%= td_classes %>">
-          <%= link_to "Show", email %>
-          <%= link_to "Incinerate", inbound_email_path(email.id), data: { "turbo-method": :delete } %>
+          <div class="group relative cursor-pointer">
+            <%= inline_svg_tag "icons/dots-vertical.svg", class: "fill-blue h-6" %>
+            <span class="invisible hidden absolute right-0 group-hover:visible group-hover:block z-10 p-2 bg-gray-200">
+              <%= link_to "Show", email, class: "p-1 hover:underline hover:text-blue-700" %>
+              <%= link_to "Incinerate", inbound_email_path(email.id), class: "p-1 hover:underline hover:text-blue-700", data: { "turbo-method": :delete } %>
+            </span>
+          </div>
         </td>
       </tr>
     <% end %>
