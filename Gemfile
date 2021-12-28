@@ -19,13 +19,13 @@ gem "stimulus-rails"
 
 gem "jbuilder"
 
+gem "redis", "~> 4.0"
 
-
+gem "tailwindcss-rails"
 
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 
 gem "bootsnap", require: false
-
 
 
 group :development, :test do
@@ -34,8 +34,6 @@ end
 
 group :development do
   gem "web-console"
-
-
 end
 
 gem "devise"
@@ -69,6 +67,3 @@ group :test do
   gem "simplecov", "~> 0.17.1"
   gem "webdrivers"
 end
-
-# Use Redis for Action Cable
-gem "redis", "~> 4.0"
