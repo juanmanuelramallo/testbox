@@ -1,19 +1,27 @@
-<table>
+<% content_for(:breadcrumbs) do %>
+  <%= link_to "Inbound Emails", inbound_emails_path %>
+<% end %>
+
+<table class="table-auto border-collpase border-b w-full">
   <thead>
-    <tr>
-      <td>Date</td>
-      <td>Subject</td>
-      <td>Content</td>
-      <td></td>
+    <% th_classes = "p-2 font-normal text-gray-700 text-left" %>
+    <tr class="bg-gray-100">
+      <th class="<%= th_classes %>">ID</th>
+      <th class="<%= th_classes %>">Date</th>
+      <th class="<%= th_classes %>">Subject</th>
+      <th class="<%= th_classes %>">Content</th>
+      <th class="<%= th_classes %>"></th>
     </tr>
   </thead>
   <tbody>
+    <% td_classes = "p-2" %>
     <% @emails.each do |email| %>
-      <tr>
-        <td><%= email.mail.date %></td>
-        <td><%= email.mail.subject %></td>
-        <td><%= email.mail.decode_body.truncate(100) %></td>
-        <td><%= link_to "Show", email %></td>
+      <tr class="<%= cycle("", "bg-gray-100") %>">
+        <td class="<%= td_classes %>"><%= email.id %></td>
+        <td class="<%= td_classes %>"><%= l email.mail.date, format: :short %></td>
+        <td class="<%= td_classes %>"><%= email.mail.subject %></td>
+        <td class="<%= td_classes %>"><%= (email.text_body || email.mail).decoded.truncate(100) %></td>
+        <td class="<%= td_classes %>"><%= link_to "Show", email %></td>
       </tr>
     <% end %>
   </tbody>

@@ -3,6 +3,12 @@ class ApplicationPresenter
 
   attr_reader :object
 
+  class << self
+    def wrap(collection)
+      collection.map { |object| new(object) }
+    end
+  end
+
   def initialize(object)
     @object = object
   end

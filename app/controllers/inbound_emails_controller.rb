@@ -1,6 +1,6 @@
 class InboundEmailsController < ApplicationController
   def index
-    @emails = ActionMailbox::InboundEmail.all
+    @emails = EmailPresenter.wrap(ActionMailbox::InboundEmail.all)
   end
 
   def show
