@@ -4,6 +4,7 @@
       <td>Date</td>
       <td>Subject</td>
       <td>Content</td>
+      <td></td>
     </tr>
   </thead>
   <tbody>
@@ -11,7 +12,8 @@
       <tr>
         <td><%= email.mail.date %></td>
         <td><%= email.mail.subject %></td>
-        <td><%= email.mail.body.raw_source.truncate(100) %></td>
+        <td><%= email.mail.decode_body.truncate(100) %></td>
+        <td><%= link_to "Show", email %></td>
       </tr>
     <% end %>
   </tbody>
