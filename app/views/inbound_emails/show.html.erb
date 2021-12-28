@@ -1,11 +1,22 @@
-<h3>HTML</h3>
-<div>
-  <iframe src="?raw=true" frameborder="0"></iframe>
+<%= content_for(:breadcrumbs) do %>
+  <%= link_to "Inbound Emails", inbound_emails_path %>
+  <%= inline_svg_tag "icons/solid-chevron-right.svg", class: "h-4 inline" %>
+  <%= link_to "##{@email.id}", inbound_email_path(@email) %>
+<% end %>
+
+<% iframe_classes = "mx-auto w-full md:w-9/12 h-64 hover:h-screen p-4 border border-gray-200 rounded-lg" %>
+<% label_classes = "w-full md:w-9/12 mx-auto text-gray-400" %>
+
+<div class="mb-3 p-3 bg-yellow-50 text-gray-700 rounded-lg">
+  Hover to expand the email.
 </div>
 
-<hr>
+<div class="my-4">
+  <p class="<%= label_classes %>">HTML</p>
+  <iframe src="?raw=true" frameborder="0" class="<%= iframe_classes %>"></iframe>
+</div>
 
-<h3>Plain Text</h3>
-<div>
-  <iframe src="<%= request.original_url + ".txt?raw=true" %>" frameborder="0"></iframe>
+<div class="my-4">
+  <p class="<%= label_classes %>">Plain text</p>
+  <iframe src="<%= request.original_url + ".txt?raw=true" %>" frameborder="0" class="<%= iframe_classes %>"></iframe>
 </div>
