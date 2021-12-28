@@ -1,3 +1,3 @@
 class ApplicationMailbox < ActionMailbox::Base
-  routing /^test@/i => :testing
+  routing :all => :testing
 end

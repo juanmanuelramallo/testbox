@@ -1,0 +1,18 @@
+<table>
+  <thead>
+    <tr>
+      <td>Date</td>
+      <td>Subject</td>
+      <td>Content</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @emails.each do |email| %>
+      <tr>
+        <td><%= email.mail.date %></td>
+        <td><%= email.mail.subject %></td>
+        <td><%= email.mail.body.raw_source.truncate(100) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
