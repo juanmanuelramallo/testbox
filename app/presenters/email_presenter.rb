@@ -2,18 +2,24 @@ class EmailPresenter < ApplicationPresenter
   alias email object
 
   def html_body
-    html_parts.first
+    html_parts(multiparted_part.presence ? multiparted_part.parts : mail.parts).first.decoded
   end
 
   def text_body
-    text_parts.first
+    text_parts(multiparted_part.presence ? multiparted_part.parts : mail.parts).first.decoded
   end
 
-  def html_parts
-    email.mail.parts.select { |part| part.content_type.match? "text/html" }
+  def multiparted_part
+    mail.parts.detect { |part| part.multipart? }
   end
 
-  def text_parts
-    email.mail.parts.select { |part| part.content_type.match? "text/plain" }
+  private
+
+  def html_parts(parts)
+    parts.select { |part| part.content_type.match? "text/html" }
+  end
+
+  def text_parts(parts)
+    parts.select { |part| part.content_type.match? "text/plain" }
   end
 end

@@ -2,6 +2,10 @@
   <%= link_to "Inbound Emails", inbound_emails_path %>
 <% end %>
 
+<div class="mb-6 p-3 bg-yellow-50 text-gray-700 rounded-lg">
+  Send your emails to <%= ENV.fetch("INBOUND_EMAIL_ADDRESS", "") %>.
+</div>
+
 <table class="table-auto border-collpase border-b w-full">
   <thead>
     <% th_classes = "p-2 font-normal text-gray-700 text-left" %>
@@ -9,7 +13,6 @@
       <th class="<%= th_classes %>">ID</th>
       <th class="<%= th_classes %>">Date</th>
       <th class="<%= th_classes %>">Subject</th>
-      <th class="<%= th_classes %>">Content</th>
       <th class="<%= th_classes %>"></th>
     </tr>
   </thead>
@@ -17,10 +20,9 @@
     <% td_classes = "p-2" %>
     <% @emails.each do |email| %>
       <tr class="<%= cycle("", "bg-gray-100") %>">
-        <td class="<%= td_classes %>"><%= email.id %></td>
+        <td class="<%= td_classes %>"><%= link_to email.id, email %></td>
         <td class="<%= td_classes %>"><%= l email.mail.date, format: :short %></td>
-        <td class="<%= td_classes %>"><%= email.mail.subject %></td>
-        <td class="<%= td_classes %>"><%= (email.text_body || email.mail).decoded.truncate(100) %></td>
+        <td class="<%= td_classes %>"><%= link_to email.mail.subject, email %></td>
         <td class="<%= td_classes %>">
           <div class="group relative cursor-pointer">
             <%= inline_svg_tag "icons/dots-vertical.svg", class: "fill-blue h-6 w-12" %>

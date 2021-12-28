@@ -4,19 +4,33 @@
   <%= link_to "##{@email.id}", inbound_email_path(@email) %>
 <% end %>
 
-<% iframe_classes = "mx-auto w-full md:w-9/12 h-64 hover:h-screen p-4 border border-gray-200 rounded-lg" %>
-<% label_classes = "w-full md:w-9/12 mx-auto text-gray-400" %>
+<% iframe_classes = "mx-auto w-full h-64 hover:h-screen p-4 border border-gray-200 rounded-lg" %>
+<% label_classes = "w-full mx-auto text-gray-400" %>
 
-<div class="mb-3 p-3 bg-yellow-50 text-gray-700 rounded-lg">
+<div class="mb-3 p-3 bg-blue-50 text-gray-700 rounded-lg">
   Hover to expand the email.
 </div>
 
-<div class="my-4">
-  <p class="<%= label_classes %>">HTML</p>
-  <iframe src="?raw=true" frameborder="0" class="<%= iframe_classes %>"></iframe>
-</div>
+<div class="my-2 grid md:grid-cols-5 gap-4">
+  <div class="col-span-4">
+    <div class="my-4">
+      <p class="<%= label_classes %>">text/html</p>
+      <iframe src="?raw=true" frameborder="0" class="<%= iframe_classes %>"></iframe>
+    </div>
 
-<div class="my-4">
-  <p class="<%= label_classes %>">Plain text</p>
-  <iframe src="<%= request.original_url + ".txt?raw=true" %>" frameborder="0" class="<%= iframe_classes %>"></iframe>
+    <div class="my-4">
+      <p class="<%= label_classes %>">text/plain</p>
+      <iframe src="<%= request.original_url + ".txt?raw=true" %>" frameborder="0" class="<%= iframe_classes %>"></iframe>
+    </div>
+  </div>
+
+  <div class="col-span-1 my-4">
+    <p class="<%= label_classes %>">Attachments</p>
+
+    <% if @email.mail.attachments.empty? %>
+      <div class="my-3 p-3 bg-blue-50 text-gray-700 rounded-lg">
+        No attachments.
+      </div>
+    <% end %>
+  </div>
 </div>
