@@ -21,7 +21,10 @@
         <td class="<%= td_classes %>"><%= l email.mail.date, format: :short %></td>
         <td class="<%= td_classes %>"><%= email.mail.subject %></td>
         <td class="<%= td_classes %>"><%= (email.text_body || email.mail).decoded.truncate(100) %></td>
-        <td class="<%= td_classes %>"><%= link_to "Show", email %></td>
+        <td class="<%= td_classes %>">
+          <%= link_to "Show", email %>
+          <%= link_to "Incinerate", inbound_email_path(email.id), data: { "turbo-method": :delete } %>
+        </td>
       </tr>
     <% end %>
   </tbody>

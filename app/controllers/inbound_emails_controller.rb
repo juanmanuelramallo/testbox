@@ -13,4 +13,10 @@ class InboundEmailsController < ApplicationController
       end
     end
   end
+
+  def destroy
+    ActionMailbox::InboundEmail.find(params[:id]).destroy!
+
+    redirect_to inbound_emails_path, notice: "Email incinerated"
+  end
 end
