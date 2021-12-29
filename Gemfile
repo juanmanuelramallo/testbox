@@ -21,8 +21,6 @@ gem "jbuilder"
 
 gem "redis", "~> 4.0"
 
-gem "tailwindcss-rails"
-
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 
 gem "bootsnap", require: false
@@ -36,12 +34,14 @@ group :development do
   gem "web-console"
 end
 
+gem "aws-sdk-s3", require: false
 gem "devise"
 gem "inline_svg"
 gem "pagy"
 gem "pundit"
 gem "sidekiq"
 gem "simple_form"
+gem "tailwindcss-rails"
 
 group :development do
   gem "annotate"

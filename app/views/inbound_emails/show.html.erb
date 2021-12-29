@@ -32,5 +32,16 @@
         No attachments.
       </div>
     <% end %>
+
+    <% @email.mail.attachments.each do |attachment| %>
+      <%= link_to inbound_email_attachment_path(@email.id, filename: attachment.filename), class: "group border border-gray-200 rounded-lg p-2 mb-4 block hover:bg-gray-100" do %>
+        <p class="text-center my-7">
+          <%= attachment.mime_type %>
+        </p>
+        <p class="text-center text-gray-700" title="<%= attachment.filename %>">
+          <%= attachment.filename.truncate(20) %>
+        </p>
+      <% end %>
+    <% end %>
   </div>
 </div>
