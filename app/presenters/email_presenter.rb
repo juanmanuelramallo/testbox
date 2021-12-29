@@ -1,5 +1,5 @@
 class EmailPresenter < ApplicationPresenter
-  alias email object
+  alias_method :email, :object
 
   def from
     mail.from.join(", ")
