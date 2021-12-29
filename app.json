@@ -1,0 +1,33 @@
+{
+  "name": "Testbox",
+  "description": "A place to send your non-production emails",
+  "repository": "https://github.com/juanmanuelramallo/testbox",
+  "logo": "",
+  "keywords": ["email", "testing", "ruby", "rails"],
+  "env": {
+    "HOST_NAME": {
+      "description": "The host name of your app",
+      "value": ""
+    },
+    "RAILS_INBOUND_EMAIL_PASSWORD": {
+      "description": "The password to be used by your email provider to access the app's inbound webhook (https://guides.rubyonrails.org/action_mailbox_basics.html#configuration)",
+      "value": ""
+    },
+    "INBOUND_EMAIL_ADDRESS": {
+      "description": "Used only to display the email in the InboundEmails index page. The email address specified by your email provider where to send your emails.",
+      "value": ""
+    },
+    "AWS_S3_ACCESS_KEY_ID": {},
+    "AWS_S3_SECRET_ACCESS_KEY": {},
+    "AWS_S3_REGION": {},
+    "AWS_S3_BUCKET": {},
+    "USER_PASSWORD": {
+      "description": "Password used to log in Testbox app",
+      "generator": "secret"
+    }
+  },
+  "addons": [
+    "heroku-redis:hobby-dev",
+    "heroku-postgresql:hobby-dev"
+  ]
+}
