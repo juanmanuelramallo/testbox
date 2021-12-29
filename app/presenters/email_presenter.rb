@@ -1,6 +1,26 @@
 class EmailPresenter < ApplicationPresenter
   alias email object
 
+  def from
+    mail.from.join(", ")
+  end
+
+  def to
+    mail.to.join(", ")
+  end
+
+  def cc
+    return "" if mail.cc.blank?
+
+    mail.cc.join(", ")
+  end
+
+  def bcc
+    return "" if mail.bcc.blank?
+
+    mail.bcc.join(", ")
+  end
+
   def html_body
     html_parts(multiparted_part.presence ? multiparted_part.parts : mail.parts).first.decoded
   end
