@@ -10,8 +10,8 @@
       "value": ""
     },
     "RAILS_INBOUND_EMAIL_PASSWORD": {
-      "description": "The password to be used by your email provider to access the app's inbound webhook (https://guides.rubyonrails.org/action_mailbox_basics.html#configuration)",
-      "value": ""
+      "description": "The password to be used by your email provider to access the app's inbound webhook (https://guides.rubyonrails.org/action_mailbox_basics.html#sendgrid)",
+      "generator": "secret"
     },
     "INBOUND_EMAIL_ADDRESS": {
       "description": "Used only to display the email in the InboundEmails index page. The email address specified by your email provider where to send your emails.",
