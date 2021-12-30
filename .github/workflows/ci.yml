@@ -47,7 +47,5 @@ jobs:
         bin/rails assets:precompile assets:clean
     - name: Linter
       run: bundle exec standardrb --format progress
-    - name: I18n Health
-      run: bundle exec i18n-tasks health
     - name: Tests
       run: bundle exec rspec
