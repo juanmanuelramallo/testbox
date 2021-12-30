@@ -3,10 +3,10 @@ name: CI
 on:
   pull_request:
     branches:
-      - "master"
+      - "main"
   push:
     branches:
-      - "master"
+      - "main"
 
 jobs:
   build:
@@ -41,25 +41,11 @@ jobs:
     - name: Install PostgreSQL 11 client
       run: |
         sudo apt-get -yqq install libpq-dev
-    - name: Get yarn cache directory path
-      id: yarn-cache-dir-path
-      run: echo "::set-output name=dir::$(yarn cache dir)"
-    - name: Restore yarn cache
-      uses: actions/cache@v2
-      id: yarn-cache
-      with:
-        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-yarn-
     - name: Build App
       run: |
         bin/rails db:setup
-        yarn
         bin/rails assets:precompile assets:clean
     - name: Linter
       run: bundle exec standardrb --format progress
-    - name: I18n Health
-      run: bundle exec i18n-tasks health
     - name: Tests
       run: bundle exec rspec
