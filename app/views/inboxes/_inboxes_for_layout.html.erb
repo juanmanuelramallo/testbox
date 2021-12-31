@@ -1,8 +1,10 @@
 <div>
   <% inboxes.each do |inbox| %>
-    <%= link_to inbox, class: "group p-2 block hover:bg-gray-100 rounded-lg" do %>
-      <p><%= inbox.name %></p>
-      <p class="truncate text-gray-400 text-sm" title="<%= inbox.address %>"><%= inbox.address %></p>
+    <%= turbo_frame_tag inbox, target: "#{dom_id(inbox)}_inbound_emails" do %>
+      <%= link_to [inbox, :inbound_emails], class: "group p-2 block hover:bg-gray-100 rounded-lg" do %>
+        <p><%= inbox.name %></p>
+        <p class="truncate text-gray-400 text-sm" title="<%= inbox.address %>"><%= inbox.address %></p>
+      <% end %>
     <% end %>
   <% end %>
 </div>

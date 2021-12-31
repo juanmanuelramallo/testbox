@@ -4,11 +4,11 @@
 <div>
   <div class="my-4">
     <p class="<%= label_classes %>">text/html</p>
-    <iframe src="?raw=true" frameborder="0" class="<%= iframe_classes %>"></iframe>
+    <iframe src="<%= "#{inbox_inbound_email_url(@inbox, @inbound_email.id)}/?raw=true" %>" frameborder="0" class="<%= iframe_classes %>"></iframe>
   </div>
 
   <div class="my-4">
     <p class="<%= label_classes %>">text/plain</p>
-    <iframe src="<%= request.original_url + ".txt?raw=true" %>" frameborder="0" class="<%= iframe_classes %>"></iframe>
+    <iframe src="<%= "#{inbox_inbound_email_url(@inbox, @inbound_email.id)}.txt?raw=true" %>" frameborder="0" class="<%= iframe_classes %>"></iframe>
   </div>
 </div>

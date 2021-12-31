@@ -8,4 +8,32 @@
   </div>
 <% end %>
 
-<%= render "application/inbox_email_layout", inboxes: @inboxes %>
+<div class="grid md:grid-cols-10 grid-cols-1 gap-1">
+  <!-- Inboxes -->
+  <div class="col-span-2">
+    <p class="text-xs text-gray-300 mb-2">Inboxes</p>
+
+    <div>
+      <% @inboxes.each do |inbox| %>
+        <%= turbo_frame_tag inbox, target: "inbound_emails" do %>
+          <%= link_to [inbox, :inbound_emails], class: "group p-2 block hover:bg-gray-100 rounded-lg", data: { "turbo-frame": "inbound_emails" } do %>
+            <p><%= inbox.name %></p>
+            <p class="truncate text-gray-400 text-sm" title="<%= inbox.address %>"><%= inbox.address %></p>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Emails -->
+  <div class="col-span-2">
+    <p class="text-xs text-gray-300 mb-2">Emails</p>
+    <%= turbo_frame_tag "inbound_emails" %>
+  </div>
+
+  <!-- Email body -->
+  <div class="col-span-6">
+    <p class="text-xs text-gray-300 mb-2">Email</p>
+    <%= turbo_frame_tag "inbound_email" %>
+  </div>
+</div>
