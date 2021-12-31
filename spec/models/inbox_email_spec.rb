@@ -14,7 +14,7 @@
 #  index_inbox_emails_on_inbox_id          (inbox_id)
 #
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe InboxEmail, type: :model do
   pending "add some examples to (or delete) #{__FILE__}"

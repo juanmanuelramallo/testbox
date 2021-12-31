@@ -7,5 +7,5 @@ class InboxesController < ApplicationController
     @inboxes = Inbox.all
     @inbox = Inbox.find(params[:id])
     @inbound_emails = EmailPresenter.wrap(@inbox.inbound_emails)
- end
+  end
 end
