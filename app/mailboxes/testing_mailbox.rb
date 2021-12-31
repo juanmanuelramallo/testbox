@@ -1,6 +1,7 @@
 class TestingMailbox < ApplicationMailbox
   def process
-    identifier = mail.to.split("@").first
+    to = mail.to.is_a?(Array) ? mail.to.first : mail.to
+    identifier = to.split("@").first
     inbox = Inbox.find_by(identifier: identifier)
 
     if inbox.present?
