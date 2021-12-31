@@ -1,0 +1,19 @@
+<% content_for(:breadcrumbs) do %>
+  <%= link_to "Inboxes", inboxes_path %>
+  <%= inline_svg_tag "icons/solid-chevron-right.svg", class: "h-4 inline" %>
+  <%= link_to @inbox.name, @inbox %>
+<% end %>
+
+<%# <% if @inboxes.empty? %1> %>
+<%#   <div class="mb-6 p-3 bg-blue-50 text-gray-700 rounded-lg"> %>
+<%#     Create a test inbox where to send your emails. %>
+<%#   </div> %>
+<%# <% end %1> %>
+
+<% content_for(:email) do %>
+  <div class="mb-6 p-3 bg-blue-50 text-gray-700 rounded-lg">
+    Select an inbound email to see.
+  </div>
+<% end %>
+
+<%= render "application/inbox_email_layout", inboxes: @inboxes, inbox: @inbox, inbound_emails: @inbound_emails, inbound_email: nil %>

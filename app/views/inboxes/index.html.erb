@@ -1,0 +1,11 @@
+<% content_for(:breadcrumbs) do %>
+  <%= link_to "Inboxes", inboxes_path %>
+<% end %>
+
+<% if @inboxes.empty? %>
+  <div class="mb-6 p-3 bg-blue-50 text-gray-700 rounded-lg">
+    Create a test inbox where to send your emails.
+  </div>
+<% end %>
+
+<%= render "application/inbox_email_layout", inboxes: @inboxes %>

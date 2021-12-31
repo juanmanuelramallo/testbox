@@ -1,6 +1,6 @@
 class AttachmentsController < ApplicationController
   def show
-    email = ActionMailbox::InboundEmail.find(params[:id])
+    email = inbox.inbound_emails.find(params[:id])
     attachment = email.mail.attachments.find { |attachment| attachment.filename == attachment_params }
 
     Tempfile.open([attachment.filename, ""], binmode: true) do |file|
@@ -15,5 +15,9 @@ class AttachmentsController < ApplicationController
 
   def attachment_params
     params.require(:filename)
+  end
+
+  def inbox
+    Inbox.find(params[:inbox_id])
   end
 end

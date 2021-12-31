@@ -1,0 +1,14 @@
+<% iframe_classes = "mx-auto w-full h-64 overflow-hidden hover:overflow-auto hover:h-screen p-4 border border-gray-200 rounded-lg transition-all delay-150" %>
+<% label_classes = "w-full mx-auto text-gray-400" %>
+
+<div>
+  <div class="my-4">
+    <p class="<%= label_classes %>">text/html</p>
+    <iframe src="?raw=true" frameborder="0" class="<%= iframe_classes %>"></iframe>
+  </div>
+
+  <div class="my-4">
+    <p class="<%= label_classes %>">text/plain</p>
+    <iframe src="<%= request.original_url + ".txt?raw=true" %>" frameborder="0" class="<%= iframe_classes %>"></iframe>
+  </div>
+</div>

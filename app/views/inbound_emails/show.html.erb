@@ -1,80 +1,60 @@
 <%= content_for(:breadcrumbs) do %>
-  <%= link_to "Inbound Emails", inbound_emails_path %>
+  <%= link_to "Inboxes", inboxes_path %>
   <%= inline_svg_tag "icons/solid-chevron-right.svg", class: "h-4 inline" %>
-  <%= link_to "##{@email.id}", inbound_email_path(@email.id) %>
+  <%= link_to @inbox.name, @inbox %>
+  <%= inline_svg_tag "icons/solid-chevron-right.svg", class: "h-4 inline" %>
+  <%= link_to "##{@inbound_email.id}", inbox_inbound_email_path(@inbox, @inbound_email.id) %>
 <% end %>
 
-<% iframe_classes = "mx-auto w-full h-64 overflow-hidden hover:overflow-auto hover:h-screen p-4 border border-gray-200 rounded-lg transition-all delay-150" %>
 <% label_classes = "w-full mx-auto text-gray-400" %>
+<%= content_for(:info_and_attachments) do %>
+  <div class="mb-3 bg-gray-50 rounded-lg py-3 px-5">
+    <% dt_classes = "mt-2 text-gray-400 text-xs uppercase" %>
+    <% dd_classes = "mb-2" %>
 
-<div class="mb-3 p-3 bg-blue-50 text-gray-700 rounded-lg">
-  Hover to expand the email.
-</div>
+    <dt class="<%= dt_classes %>">Subject</dt>
+    <dd class="<%= dd_classes %>"><%= @inbound_email.mail.subject %></dd>
 
-<div class="my-2 grid md:grid-cols-6 gap-4">
-  <div class="col-span-4">
-    <div class="my-4">
-      <p class="<%= label_classes %>">text/html</p>
-      <iframe src="?raw=true" frameborder="0" class="<%= iframe_classes %>"></iframe>
-    </div>
+    <dt class="<%= dt_classes %>">From</dt>
+    <dd class="<%= dd_classes %>"><%= @inbound_email.from %></dd>
 
-    <div class="my-4">
-      <p class="<%= label_classes %>">text/plain</p>
-      <iframe src="<%= request.original_url + ".txt?raw=true" %>" frameborder="0" class="<%= iframe_classes %>"></iframe>
-    </div>
+    <dt class="<%= dt_classes %>">To</dt>
+    <dd class="<%= dd_classes %>"><%= @inbound_email.to %></dd>
+
+    <% if @inbound_email.cc.present? %>
+      <dt class="<%= dt_classes %>">cc</dt>
+      <dd class="<%= dd_classes %>"><%= @inbound_email.cc %></dd>
+    <% end %>
+
+    <% if @inbound_email.bcc.present? %>
+      <dt class="<%= dt_classes %>">bcc</dt>
+      <dd class="<%= dd_classes %>"><%= @inbound_email.bcc %></dd>
+    <% end %>
+
+    <dt class="<%= dt_classes %>">Date</dt>
+    <dd class="<%= dd_classes %>"><%= l @inbound_email.mail.date %></dd>
   </div>
 
-  <div class="col-span-2 my-4">
-    <p class="<%= label_classes %>">Info</p>
-    <div class="mb-3 bg-gray-50 rounded-lg py-3 px-5">
-
-      <% dt_classes = "mt-2 text-gray-400 text-xs uppercase" %>
-      <% dd_classes = "mb-2" %>
-
-      <dt class="<%= dt_classes %>">Subject</dt>
-      <dd class="<%= dd_classes %>"><%= @email.mail.subject %></dd>
-
-      <dt class="<%= dt_classes %>">From</dt>
-      <dd class="<%= dd_classes %>"><%= @email.from %></dd>
-
-      <dt class="<%= dt_classes %>">To</dt>
-      <dd class="<%= dd_classes %>"><%= @email.to %></dd>
-
-      <% if @email.cc.present? %>
-        <dt class="<%= dt_classes %>">cc</dt>
-        <dd class="<%= dd_classes %>"><%= @email.cc %></dd>
-      <% end %>
-
-      <% if @email.bcc.present? %>
-        <dt class="<%= dt_classes %>">bcc</dt>
-        <dd class="<%= dd_classes %>"><%= @email.bcc %></dd>
-      <% end %>
-
-      <dt class="<%= dt_classes %>">Date</dt>
-      <dd class="<%= dd_classes %>"><%= l @email.mail.date %></dd>
-    </div>
-
-    <div class="my-6">
-      <p class="<%= label_classes %>">Attachments</p>
-
-      <% if @email.mail.attachments.empty? %>
-        <div class="my-3 p-3 bg-blue-50 text-gray-700 rounded-lg">
-          No attachments.
-        </div>
-      <% end %>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <% @email.mail.attachments.each do |attachment| %>
-          <%= link_to inbound_email_attachment_path(@email.id, filename: attachment.filename), class: "group border border-gray-200 rounded-lg p-2 mb-4 block hover:bg-gray-100 hover:border-transparent transition" do %>
-            <p class="text-center my-7">
-              <%= attachment.mime_type %>
-            </p>
-            <p class="text-center text-gray-700" title="<%= attachment.filename %>">
-            <%= attachment.filename.truncate(20) %>
-            </p>
-          <% end %>
-        <% end %>
+  <div class="my-6">
+    <% if @inbound_email.mail.attachments.empty? %>
+      <div class="my-3 p-3 bg-blue-50 text-gray-700 rounded-lg">
+        No attachments.
       </div>
+    <% end %>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <% @inbound_email.mail.attachments.each do |attachment| %>
+        <%= link_to inbox_inbound_email_attachment_path(@inbox, @inbound_email.id, filename: attachment.filename), class: "group border border-gray-200 rounded-lg p-2 mb-4 block hover:bg-gray-100 hover:border-transparent transition" do %>
+          <p class="text-center my-7">
+          <%= attachment.mime_type %>
+          </p>
+          <p class="text-center text-gray-700" title="<%= attachment.filename %>">
+          <%= attachment.filename.truncate(20) %>
+          </p>
+        <% end %>
+      <% end %>
     </div>
   </div>
-</div>
+<% end %>
+
+<%= render "application/inbox_email_layout", inboxes: @inboxes, inbox: @inbox, inbound_emails: @inbound_emails, inbound_email: @inbound_email %>

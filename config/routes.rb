@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
-  resources :inbound_emails, only: [:show, :index, :destroy] do
-    resources :attachments, only: :show
+  resources :inboxes, only: [:index, :show, :create] do
+    resources :inbound_emails, only: [:show, :index, :destroy] do
+      resources :attachments, only: :show
+    end
   end
 
-  root "inbound_emails#index"
+  root "inboxes#index"
 end

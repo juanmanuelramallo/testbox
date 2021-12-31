@@ -1,0 +1,8 @@
+<div>
+  <% inbound_emails.each do |email| %>
+    <%= link_to [inbox, email], class: "group p-2 block hover:bg-gray-100 rounded-lg" do %>
+      <p><%= email.mail.subject.truncate(30) %></p>
+      <p class="truncate text-gray-400 text-sm"><%= email.from.truncate(30) %></p>
+    <% end %>
+  <% end %>
+</div>
