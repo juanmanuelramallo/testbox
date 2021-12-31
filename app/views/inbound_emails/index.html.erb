@@ -1,23 +1,34 @@
 <%= content_for(:breadcrumbs) do %>
   <%= link_to "Inboxes", inboxes_path %>
   <%= inline_svg_tag "icons/solid-chevron-right.svg", class: "h-4 inline" %>
-  <%= link_to @inbox.name, @inbox %>
+  <%= link_to @inbox.name, [@inbox, :inbound_emails] %>
 <% end %>
 
-All emails from <%= @inbox.name %>
-
-<%= turbo_frame_tag @inbox do %>
-  <%= link_to [@inbox, :inbound_emails], class: "group p-2 block hover:bg-gray-100 rounded-lg", data: { "turbo-frame": "#{dom_id(@inbox)}_inbound_emails" } do %>
-    <p><%= @inbox.name %></p>
-    <p class="truncate text-gray-400 text-sm" title="<%= @inbox.address %>"><%= @inbox.address %></p>
-  <% end %>
-<% end %>
-
-<%= turbo_frame_tag "inbound_emails" do %>
-  <% @inbound_emails.each do |email| %>
-    <%= link_to [@inbox, email], class: "group p-2 block hover:bg-gray-100 rounded-lg", data: { "turbo-frame": "inbound_email" } do %>
-      <p><%= email.mail.subject.truncate(30) %></p>
-      <p class="truncate text-gray-400 text-sm"><%= email.from.truncate(30) %></p>
+<div class="grid md:grid-cols-10 grid-cols-1 gap-1">
+  <!-- Inboxes -->
+  <div class="col-span-2">
+    <p class="text-xs text-gray-300 mb-2">Inboxes</p>
+    <%= turbo_frame_tag "inboxes", src: inboxes_path do %>
+      <%= render "application/loader" %>
     <% end %>
-  <% end %>
-<% end %>
+  </div>
+
+  <!-- Emails -->
+  <div class="col-span-2">
+    <p class="text-xs text-gray-300 mb-2">Emails</p>
+    <%= turbo_frame_tag "inbound_emails" do %>
+      <% @inbound_emails.each do |email| %>
+        <%= link_to [@inbox, email], class: "group p-2 block hover:bg-gray-100 rounded-lg", data: { "turbo-frame": "inbound_email", "turbo-action": "replace" } do %>
+          <p><%= email.mail.subject.truncate(30) %></p>
+          <p class="truncate text-gray-400 text-sm"><%= email.from.truncate(30) %></p>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <!-- Email body -->
+  <div class="col-span-6">
+    <p class="text-xs text-gray-300 mb-2">Email</p>
+    <%= turbo_frame_tag "inbound_email" %>
+  </div>
+</div>

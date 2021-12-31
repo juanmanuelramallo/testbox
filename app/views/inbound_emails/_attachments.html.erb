@@ -1,0 +1,16 @@
+<% if inbound_email.mail.attachments.empty? %>
+  <div class="my-3 p-3 bg-blue-50 text-gray-700 rounded-lg">
+    No attachments.
+  </div>
+<% end %>
+
+<% inbound_email.mail.attachments.each do |attachment| %>
+  <%= link_to inbox_inbound_email_attachment_path(inbox, inbound_email.id, filename: attachment.filename), class: "group border border-gray-200 rounded-lg p-2 block hover:bg-gray-100 hover:border-transparent transition" do %>
+    <p class="text-center my-7">
+    <%= attachment.mime_type %>
+    </p>
+    <p class="text-center text-gray-700" title="<%= attachment.filename %>">
+    <%= attachment.filename.truncate(20) %>
+    </p>
+  <% end %>
+<% end %>

@@ -12,17 +12,14 @@
   <!-- Inboxes -->
   <div class="col-span-2">
     <p class="text-xs text-gray-300 mb-2">Inboxes</p>
-
-    <div>
-      <% @inboxes.each do |inbox| %>
-        <%= turbo_frame_tag inbox, target: "inbound_emails" do %>
-          <%= link_to [inbox, :inbound_emails], class: "group p-2 block hover:bg-gray-100 rounded-lg", data: { "turbo-frame": "inbound_emails" } do %>
+      <%= turbo_frame_tag "inboxes" do %>
+        <% @inboxes.each do |inbox| %>
+          <%= link_to [inbox, :inbound_emails], class: "group p-2 block hover:bg-gray-100 rounded-lg", data: { "turbo-frame": "inbound_emails", "turbo-action": "replace" } do %>
             <p><%= inbox.name %></p>
             <p class="truncate text-gray-400 text-sm" title="<%= inbox.address %>"><%= inbox.address %></p>
           <% end %>
         <% end %>
       <% end %>
-    </div>
   </div>
 
   <!-- Emails -->

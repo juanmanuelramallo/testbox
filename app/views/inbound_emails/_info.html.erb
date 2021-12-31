@@ -1,0 +1,36 @@
+<% dt_classes = "text-gray-400 text-xs uppercase" %>
+<% dd_classes = "" %>
+
+<div>
+  <dt class="<%= dt_classes %>">Subject</dt>
+  <dd class="<%= dd_classes %>" title="<%= @inbound_email.mail.subject %>"><%= @inbound_email.mail.subject %></dd>
+</div>
+
+<div>
+  <dt class="<%= dt_classes %>">Date</dt>
+  <dd class="<%= dd_classes %>"><%= l @inbound_email.mail.date %></dd>
+</div>
+
+<div>
+  <dt class="<%= dt_classes %>">From</dt>
+  <dd class="<%= dd_classes %>" title="<%= @inbound_email.from %>"><%= @inbound_email.from %></dd>
+</div>
+
+<div>
+  <dt class="<%= dt_classes %>">To</dt>
+ <dd class="<%= dd_classes %>" title="<%= @inbound_email.to %>"><%= @inbound_email.to %></dd>
+</div>
+
+<% if @inbound_email.cc.present? %>
+  <div>
+    <dt class="<%= dt_classes %>">cc</dt>
+    <dd class="<%= dd_classes %>" title="<%= @inbound_email.cc %>"><%= @inbound_email.cc %></dd>
+  </div>
+<% end %>
+
+<% if @inbound_email.bcc.present? %>
+  <div>
+    <dt class="<%= dt_classes %>">bcc</dt>
+    <dd class="<%= dd_classes %>" title="<%= @inbound_email.bcc %>"><%= @inbound_email.bcc %></dd>
+  </div>
+<% end %>

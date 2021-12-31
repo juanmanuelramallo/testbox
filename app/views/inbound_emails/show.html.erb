@@ -1,75 +1,43 @@
 <%= content_for(:breadcrumbs) do %>
   <%= link_to "Inboxes", inboxes_path %>
   <%= inline_svg_tag "icons/solid-chevron-right.svg", class: "h-4 inline" %>
-  <%= link_to @inbox.name, @inbox %>
+  <%= link_to @inbox.name, [@inbox, :inbound_emails] %>
   <%= inline_svg_tag "icons/solid-chevron-right.svg", class: "h-4 inline" %>
   <%= link_to "##{@inbound_email.id}", inbox_inbound_email_path(@inbox, @inbound_email.id) %>
 <% end %>
 
-<%= turbo_frame_tag "inbound_email" do %>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-2 p-2">
-    <% label_classes = "w-full mx-auto text-gray-400" %>
-    <% dt_classes = "text-gray-400 text-xs uppercase" %>
-    <% dd_classes = "" %>
-
-    <div>
-      <dt class="<%= dt_classes %>">Subject</dt>
-      <dd class="<%= dd_classes %>" title="<%= @inbound_email.mail.subject %>"><%= @inbound_email.mail.subject %></dd>
-    </div>
-
-    <div>
-      <dt class="<%= dt_classes %>">Date</dt>
-      <dd class="<%= dd_classes %>"><%= l @inbound_email.mail.date %></dd>
-    </div>
-
-    <div>
-      <dt class="<%= dt_classes %>">From</dt>
-      <dd class="<%= dd_classes %>" title="<%= @inbound_email.from %>"><%= @inbound_email.from %></dd>
-    </div>
-
-    <div>
-      <dt class="<%= dt_classes %>">To</dt>
-      <dd class="<%= dd_classes %>" title="<%= @inbound_email.to %>"><%= @inbound_email.to %></dd>
-    </div>
-
-    <% if @inbound_email.cc.present? %>
-      <div>
-        <dt class="<%= dt_classes %>">cc</dt>
-        <dd class="<%= dd_classes %>" title="<%= @inbound_email.cc %>"><%= @inbound_email.cc %></dd>
-      </div>
-    <% end %>
-
-    <% if @inbound_email.bcc.present? %>
-      <div>
-        <dt class="<%= dt_classes %>">bcc</dt>
-        <dd class="<%= dd_classes %>" title="<%= @inbound_email.bcc %>"><%= @inbound_email.bcc %></dd>
-      </div>
+<div class="grid md:grid-cols-10 grid-cols-1 gap-1">
+  <!-- Inboxes -->
+  <div class="col-span-2">
+    <p class="text-xs text-gray-300 mb-2">Inboxes</p>
+    <%= turbo_frame_tag "inboxes", src: inboxes_path do %>
+      <%= render "application/loader" %>
     <% end %>
   </div>
 
-  <div class="grid md:grid-cols-3 grid-cols-1 gap-1">
-    <% if @inbound_email.mail.attachments.empty? %>
-      <div class="my-3 p-3 bg-blue-50 text-gray-700 rounded-lg">
-        No attachments.
+  <!-- Emails -->
+  <div class="col-span-2">
+    <p class="text-xs text-gray-300 mb-2">Emails</p>
+    <%= turbo_frame_tag "inbound_emails", src: inbox_inbound_emails_path(@inbox) do %>
+      <%= render "application/loader" %>
+    <% end %>
+  </div>
+
+  <!-- Email body -->
+  <div class="col-span-6">
+    <p class="text-xs text-gray-300 mb-2">Email</p>
+    <%= turbo_frame_tag "inbound_email" do %>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-2 p-2">
+        <%= render "info", inbound_email: @inbound_email %>
+      </div>
+
+      <div class="grid md:grid-cols-3 grid-cols-1 gap-1">
+        <%= render "attachments", inbox: @inbox, inbound_email: @inbound_email %>
+      </div>
+
+      <div class="">
+        <%= render "inbound_email", inbound_email: @inbound_email, inbox: @inbox %>
       </div>
     <% end %>
-
-    <% @inbound_email.mail.attachments.each do |attachment| %>
-      <%= link_to inbox_inbound_email_attachment_path(@inbox, @inbound_email.id, filename: attachment.filename), class: "group border border-gray-200 rounded-lg p-2 block hover:bg-gray-100 hover:border-transparent transition" do %>
-        <p class="text-center my-7">
-        <%= attachment.mime_type %>
-        </p>
-        <p class="text-center text-gray-700" title="<%= attachment.filename %>">
-        <%= attachment.filename.truncate(20) %>
-        </p>
-      <% end %>
-    <% end %>
   </div>
-
-
-  <div class="grid grid-cols-4 gap-1">
-    <div class="col-span-3">
-      <%= render "inbound_email", inbound_email: @inbound_email, inbox: @inbox %>
-    </div>
-  </div>
-<% end %>
+</div>
