@@ -1,14 +1,11 @@
-<% iframe_classes = "mx-auto w-full h-64 overflow-hidden hover:overflow-auto hover:h-screen p-4 border border-gray-200 rounded-lg transition-all delay-150" %>
-<% label_classes = "w-full mx-auto text-gray-400" %>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-2 p-2">
+  <%= render "info", inbound_email: @inbound_email %>
+</div>
 
-<div>
-  <div class="my-4">
-    <p class="<%= label_classes %>">text/html</p>
-    <iframe src="<%= "#{inbox_inbound_email_url(@inbox, @inbound_email.id)}/?raw=true" %>" frameborder="0" class="<%= iframe_classes %>"></iframe>
-  </div>
+<div class="grid md:grid-cols-3 grid-cols-1 gap-1">
+  <%= render "attachments", inbox: @inbox, inbound_email: @inbound_email %>
+</div>
 
-  <div class="my-4">
-    <p class="<%= label_classes %>">text/plain</p>
-    <iframe src="<%= "#{inbox_inbound_email_url(@inbox, @inbound_email.id)}.txt?raw=true" %>" frameborder="0" class="<%= iframe_classes %>"></iframe>
-  </div>
+<div class="">
+  <%= render "preview", inbound_email: @inbound_email, inbox: @inbox %>
 </div>
