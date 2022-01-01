@@ -1,0 +1,4 @@
+<%= link_to [inbox_email.inbox, inbox_email.inbound_email], class: "group p-2 block hover:bg-gray-100 rounded-lg", data: { "turbo-frame": "inbound_email", "turbo-action": "replace" } do %>
+  <p><%= inbox_email.inbound_email.mail.subject.truncate(30) %></p>
+  <p class="truncate text-gray-400 text-sm"><%= inbox_email.inbound_email.mail.from.first.truncate(30) %></p>
+<% end %>

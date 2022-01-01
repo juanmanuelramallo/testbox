@@ -17,4 +17,6 @@
 class InboxEmail < ApplicationRecord
   belongs_to :inbox
   belongs_to :inbound_email, class_name: "ActionMailbox::InboundEmail"
+
+  broadcasts_to ->(inbox_email) { [inbox_email.inbox, :inbound_emails] }, inserts_by: :prepend, target: "inbound_emails"
 end

@@ -16,6 +16,7 @@
   <!-- Emails -->
   <div class="col-span-2">
     <p class="text-xs text-gray-300 mb-2">Emails</p>
+    <%= turbo_stream_from @inbox, :inbound_emails %>
     <%= turbo_frame_tag "inbound_emails" do %>
       <% @inbound_emails.each do |email| %>
         <%= link_to [@inbox, email], class: "group p-2 block hover:bg-gray-100 rounded-lg", data: { "turbo-frame": "inbound_email", "turbo-action": "replace" } do %>

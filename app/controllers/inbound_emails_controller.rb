@@ -1,7 +1,7 @@
 class InboundEmailsController < ApplicationController
   def index
     @inboxes = Inbox.all
-    @inbound_emails = EmailPresenter.wrap(inbox.inbound_emails)
+    @inbound_emails = EmailPresenter.wrap(inbox.inbound_emails.order(created_at: :desc))
   end
 
   def show
