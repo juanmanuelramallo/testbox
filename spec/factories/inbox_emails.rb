@@ -16,7 +16,7 @@
 
 FactoryBot.define do
   factory :inbox_email do
-    inbox { nil }
-    action_mailbox_inbound_email { nil }
+    inbox
+    action_mailbox_inbound_email
   end
 end

@@ -11,7 +11,7 @@
 
 FactoryBot.define do
   factory :inbox do
-    name { "MyString" }
-    identifier { "" }
+    name { "My inbox" }
+    identifier { SecureRandom.uuid }
   end
 end

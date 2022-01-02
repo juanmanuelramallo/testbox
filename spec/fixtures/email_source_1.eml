@@ -1,0 +1,9 @@
+to: 'save@example.com',
+from: 'rails@example.com',
+subject: "Fwd: Status update?",
+date: 'Date: Sat, 01 Jan 2022 23:28:44 +0000',
+body:
+  --- Begin forwarded message ---
+  From: Frank Sinatra <frank@example.com>
+
+  What's the status?
