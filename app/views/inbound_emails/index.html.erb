@@ -5,15 +5,18 @@
     <%= turbo_frame_tag "inboxes", src: inboxes_path do %>
       <%= render "application/loader" %>
     <% end %>
-    <%= turbo_frame_tag "new_inbox" do %>
-      <%= render "inboxes/form", new_inbox: Inbox.new %>
-    <% end %>
   </div>
 
   <!-- Emails -->
   <div class="col-span-2">
     <p class="text-xs text-gray-300 mb-2">Emails</p>
     <%= turbo_frame_tag "inbound_emails" do %>
+      <% if @inbound_emails.blank? %>
+        <div class="rounded-lg bg-yellow-50 text-gray-600 p-2">
+          Send an email to your inbox's address to see it here.
+        </div>
+      <% end %>
+
       <% @inbound_emails.each do |email| %>
         <%= link_to [@inbox, email], class: "group p-2 block hover:bg-gray-100 rounded-lg", data: { "turbo-frame": "inbound_email", "turbo-action": "replace" } do %>
           <p class="truncate"><%= email.mail.subject %></p>

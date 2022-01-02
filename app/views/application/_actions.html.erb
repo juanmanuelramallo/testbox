@@ -1,0 +1,6 @@
+<div class="px-5 py-4 bg-gray-50">
+  <p class="text-xs text-gray-500">Create a new inbox</p>
+  <%= turbo_frame_tag "new_inbox" do %>
+    <%= render "inboxes/form", new_inbox: Inbox.new %>
+  <% end %>
+</div>

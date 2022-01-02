@@ -1,4 +1,20 @@
-<%= simple_form_for new_inbox do |f| %>
-  <%= f.input :name, label: false, placeholder: "Name" %>
-  <%= f.submit %>
+<%= simple_form_for new_inbox, html: { class: "" } do |f| %>
+  <div class="flex flex-row">
+    <%= f.input :name,
+      label: false,
+      placeholder: "Name",
+      error: false,
+      wrapper_html: { class: "" },
+      input_html: { class: "border-gray-200 rounded-lg w-full flex-1" } %>
+    <div class="flex flex-column justify-center">
+      <%= button_tag :submit, class: "ml-1 py-auto hover:bg-gray-100 rounded-lg cursor-pointer h-full w-7 text-gray-500 hover:text-blue-600", title: "Create Inbox" do %>
+        <span aria-hidden=true>
+          <%= inline_svg_tag "icons/check.svg" %>
+        </span>
+      <% end %>
+    </div>
+  </div>
+  <div>
+    <%= f.error :name, class: "text-sm text-red-700" %>
+  </div>
 <% end %>
