@@ -22,11 +22,11 @@ class EmailPresenter < ApplicationPresenter
   end
 
   def html_body
-    html_parts(multiparted_part.presence ? multiparted_part.parts : mail.parts).first.decoded
+    (html_parts(multiparted_part.presence ? multiparted_part.parts : mail.parts).first || mail).decoded
   end
 
   def text_body
-    text_parts(multiparted_part.presence ? multiparted_part.parts : mail.parts).first.decoded
+    text_parts(multiparted_part.presence ? multiparted_part.parts : mail.parts).first&.decoded
   end
 
   def multiparted_part
