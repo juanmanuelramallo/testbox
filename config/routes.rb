@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  draw :madmin
   devise_for :users
   resources :accounts, only: [:new, :create] do
     resources :inboxes, only: [:index, :create] do
