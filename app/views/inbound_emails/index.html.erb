@@ -2,7 +2,7 @@
   <!-- Inboxes -->
   <div class="col-span-2">
     <p class="text-xs text-gray-300 mb-2">Inboxes</p>
-    <%= turbo_frame_tag "inboxes", src: inboxes_path do %>
+    <%= turbo_frame_tag "inboxes", src: account_inboxes_path(current_account) do %>
       <%= render "application/loader" %>
     <% end %>
   </div>
@@ -18,7 +18,7 @@
       <% end %>
 
       <% @inbound_emails.each do |email| %>
-        <%= link_to [@inbox, email], class: "group p-2 block hover:bg-gray-100 rounded-lg", data: { "turbo-frame": "inbound_email", "turbo-action": "replace" } do %>
+        <%= link_to [current_account, @inbox, email], class: "group p-2 block hover:bg-gray-100 rounded-lg", data: { "turbo-frame": "inbound_email", "turbo-action": "replace" } do %>
           <p class="truncate"><%= email.mail.subject %></p>
           <p class="truncate text-gray-400 text-sm"><%= email.from.truncate(30) %></p>
         <% end %>

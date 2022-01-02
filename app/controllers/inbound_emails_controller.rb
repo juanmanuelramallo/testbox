@@ -1,11 +1,11 @@
 class InboundEmailsController < ApplicationController
   def index
-    @inboxes = Inbox.all
+    @inboxes = current_account.inboxes
     @inbound_emails = EmailPresenter.wrap(inbox.inbound_emails.order(created_at: :desc))
   end
 
   def show
-    @inboxes = Inbox.all
+    @inboxes = current_account.inboxes
     @inbound_emails = EmailPresenter.wrap(inbox.inbound_emails)
     @inbound_email = EmailPresenter.new(inbox.inbound_emails.find(params[:id]))
 
@@ -26,6 +26,6 @@ class InboundEmailsController < ApplicationController
   private
 
   def inbox
-    @inbox ||= Inbox.find(params[:inbox_id])
+    @inbox ||= current_account.inboxes.find(params[:inbox_id])
   end
 end

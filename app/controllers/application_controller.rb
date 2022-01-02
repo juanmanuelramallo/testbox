@@ -1,10 +1,16 @@
 class ApplicationController < ActionController::Base
+  include CurrentAccount
+
   before_action :authenticate_user!
-  # before_action :authenticate
+  before_action :check_account_exists!
 
-  protected
+  private
 
-  def authenticate
-    http_basic_authenticate_or_request_with(name: "testbox", password: ENV.fetch("USER_PASSWORD"))
+  def check_account_exists!
+    return unless user_signed_in?
+    return unless current_user.accounts.blank?
+    return if controller_name == "accounts" || devise_controller?
+
+    redirect_to new_account_path, notice: "Create your account to start using Testbox"
   end
 end

@@ -1,6 +1,6 @@
 class InboxesController < ApplicationController
   def index
-    @inboxes = Inbox.all.order(created_at: :desc)
+    @inboxes = current_account.inboxes.order(created_at: :desc)
     @new_inbox = Inbox.new
   end
 
@@ -9,11 +9,11 @@ class InboxesController < ApplicationController
   end
 
   def create
-    @new_inbox = Inbox.new(inbox_params)
+    @new_inbox = current_account.inboxes.new(inbox_params)
 
     respond_to do |format|
       if @new_inbox.save
-        format.html { redirect_to inbox_inbound_emails_path(@new_inbox), notice: "Good" }
+        format.html { redirect_to account_inbox_inbound_emails_path(current_account, @new_inbox), notice: "Inbox created successfully." }
         format.turbo_stream
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -29,11 +29,11 @@ class InboxesController < ApplicationController
   end
 
   def destroy
-    inbox = Inbox.find(params[:id])
+    inbox = current_account.inboxes.find(params[:id])
     inbox.destroy!
     respond_to do |format|
       format.turbo_stream { redirect_to root_path }
-      format.html { redirect_to root_path, notice: "Inbox removed successfully" }
+      format.html { redirect_to root_path, notice: "Inbox removed successfully." }
     end
   end
 

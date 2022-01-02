@@ -1,4 +1,4 @@
-<% if user_signed_in? %>
+<% if user_signed_in? && controller_name != "accounts" %>
   <div class="px-5 py-4 bg-gray-50 flex flex-row">
     <div class="flex-1">
       <% d_group_classes = "mb-2" %>

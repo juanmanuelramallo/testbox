@@ -1,4 +1,4 @@
-<%= simple_form_for new_inbox, html: { class: "" } do |f| %>
+<%= simple_form_for [current_account, new_inbox], html: { class: "" } do |f| %>
   <div class="flex flex-row">
     <%= f.input :name,
       label: false,

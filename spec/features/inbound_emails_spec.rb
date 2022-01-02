@@ -1,16 +1,20 @@
 require "rails_helper"
 
 RSpec.describe "See an inbound email", js: true do
-  let(:inbox) { create(:inbox, name: "My test inbox") }
-  let(:inbox_2) { create(:inbox, name: "Other inbox") }
+  let(:account) { create(:account) }
+  let(:inbox) { create(:inbox, name: "My test inbox", account: account) }
+  let(:inbox_2) { create(:inbox, name: "Other inbox", account: account) }
   let(:email) { create(:action_mailbox_inbound_email) }
+  let(:user) { create(:user) }
 
   before do
+    account.users << user
     inbox_2
     inbox.inbound_emails << email
   end
 
   scenario "user opens an email from the beginning" do
+    sign_in user
     visit root_path
 
     click_on "My test inbox"

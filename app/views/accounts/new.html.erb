@@ -1,0 +1,13 @@
+<div class="w-96 mx-auto">
+  <h1 class="text-xl">Create your Testbox account to:</h1>
+
+  <div class="p-2">
+    <% li_classes = "text-gray-700 list-disc" %>
+    <ul>
+      <li class="<%= li_classes %>">create specific inboxes for all of your apps.</li>
+      <li class="<%= li_classes %>">send unlimited emails to your inboxes. <span class="text-xs text-gray-400">20mb max per email</span></li>
+    </ul>
+  </div>
+
+  <%= render "form", account: @account %>
+</div>

@@ -18,6 +18,6 @@ class AttachmentsController < ApplicationController
   end
 
   def inbox
-    Inbox.find(params[:inbox_id])
+    current_account.inboxes.find(params[:inbox_id])
   end
 end

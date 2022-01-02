@@ -1,4 +1,4 @@
-<%= link_to [inbox, :inbound_emails], class: "group p-2 block hover:bg-gray-100 rounded-lg", target: "_top" do %>
+<%= link_to [current_account, inbox, :inbound_emails], class: "group p-2 block hover:bg-gray-100 rounded-lg", target: "_top" do %>
   <p><%= inbox.name %></p>
   <p class="truncate text-gray-400 text-sm" title="<%= inbox.address %>"><%= inbox.address %></p>
 <% end %>

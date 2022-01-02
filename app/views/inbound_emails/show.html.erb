@@ -2,7 +2,7 @@
   <!-- Inboxes -->
   <div class="col-span-2">
     <p class="text-xs text-gray-300 mb-2">Inboxes</p>
-    <%= turbo_frame_tag "inboxes", src: inboxes_path do %>
+    <%= turbo_frame_tag "inboxes", src: account_inboxes_path(current_account) do %>
       <%= render "application/loader" %>
     <% end %>
   </div>
@@ -10,7 +10,7 @@
   <!-- Emails -->
   <div class="col-span-2">
     <p class="text-xs text-gray-300 mb-2">Emails</p>
-    <%= turbo_frame_tag "inbound_emails", src: inbox_inbound_emails_path(@inbox) do %>
+    <%= turbo_frame_tag "inbound_emails", src: account_inbox_inbound_emails_path(current_account, @inbox) do %>
       <%= render "application/loader" %>
     <% end %>
   </div>
