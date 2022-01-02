@@ -4,12 +4,6 @@ class InboxesController < ApplicationController
     @new_inbox = Inbox.new
   end
 
-  def show
-    @inboxes = Inbox.all
-    @inbox = Inbox.find(params[:id])
-    @inbound_emails = EmailPresenter.wrap(@inbox.inbound_emails)
-  end
-
   def new
     @new_inbox = Inbox.new
   end
@@ -31,6 +25,15 @@ class InboxesController < ApplicationController
           )
         end
       end
+    end
+  end
+
+  def destroy
+    inbox = Inbox.find(params[:id])
+    inbox.destroy!
+    respond_to do |format|
+      format.turbo_stream { redirect_to root_path }
+      format.html { redirect_to root_path, notice: "Inbox removed successfully" }
     end
   end
 

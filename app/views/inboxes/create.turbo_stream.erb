@@ -1,8 +1,5 @@
 <%= turbo_stream.prepend "inboxes" do %>
-  <%= link_to [@new_inbox, :inbound_emails], class: "group p-2 block hover:bg-gray-100 rounded-lg", data: { "turbo-frame": "inbound_emails", "turbo-action": "replace" } do %>
-    <p><%= @new_inbox.name %></p>
-    <p class="truncate text-gray-400 text-sm" title="<%= @new_inbox.address %>"><%= @new_inbox.address %></p>
-  <% end %>
+  <%= render "inbox_index", inbox: @new_inbox %>
 <% end %>
 
 <%= turbo_stream.replace "new_inbox" do %>

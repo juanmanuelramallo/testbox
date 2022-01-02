@@ -21,4 +21,13 @@ RSpec.describe "Inboxes", js: true do
 
     expect(page).to have_text("has already been taken")
   end
+
+  scenario "user removes an inbox" do
+    visit root_path
+
+    click_on "My test inbox"
+    click_on "Remove"
+
+    expect(page).not_to have_text("My test inbox")
+  end
 end

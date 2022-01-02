@@ -15,8 +15,8 @@ class Inbox < ApplicationRecord
   validates :name, :identifier, presence: true
   validates :name, :identifier, uniqueness: true
 
-  has_many :inbox_emails
-  has_many :inbound_emails, through: :inbox_emails
+  has_many :inbox_emails, dependent: :destroy
+  has_many :inbound_emails, through: :inbox_emails, dependent: :destroy
 
   def address
     "#{identifier}@#{ENV.fetch("INBOUND_DOMAIN", "")}"
