@@ -10,7 +10,10 @@
 #
 
 class Inbox < ApplicationRecord
+  attribute :identifier, :uuid, default: -> { SecureRandom.uuid }
+
   validates :name, :identifier, presence: true
+  validates :name, :identifier, uniqueness: true
 
   has_many :inbox_emails
   has_many :inbound_emails, through: :inbox_emails

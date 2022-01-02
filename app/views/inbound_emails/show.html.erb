@@ -5,6 +5,9 @@
     <%= turbo_frame_tag "inboxes", src: inboxes_path do %>
       <%= render "application/loader" %>
     <% end %>
+    <%= turbo_frame_tag "new_inbox" do %>
+      <%= render "inboxes/form", new_inbox: Inbox.new %>
+    <% end %>
   </div>
 
   <!-- Emails -->
