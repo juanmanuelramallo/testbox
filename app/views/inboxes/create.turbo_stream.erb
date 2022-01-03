@@ -5,3 +5,5 @@
 <%= turbo_stream.replace "new_inbox" do %>
   <%= render "form", new_inbox: Inbox.new %>
 <% end %>
+
+<%= turbo_stream.remove "empty_message" %>

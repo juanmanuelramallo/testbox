@@ -2,31 +2,32 @@ require "rails_helper"
 
 RSpec.describe "Inboxes", js: true do
   let(:account) { create(:account) }
-  let(:inbox) { create(:inbox, name: "My test inbox", account: account) }
-  let(:email) { create(:action_mailbox_inbound_email) }
   let(:user) { create(:user) }
 
   before do
     account.users << user
-    inbox.inbound_emails << email
   end
 
   scenario "user creates a new inbox" do
     sign_in user
     visit root_path
 
-    fill_in "inbox[name]", with: "My new test inbox"
-    click_on "Create Inbox"
+    within "#empty_message" do
+      fill_in "inbox[name]", with: "My new test inbox"
+      click_on "Create Inbox"
+    end
 
     expect(page).to have_text("My new test inbox")
 
     fill_in "inbox[name]", with: "My new test inbox"
     click_on "Create Inbox"
 
-    expect(page).to have_text("has already been taken")
+    expect(page).to have_text("Please upgrade your account. Max number of inboxes reached.")
   end
 
   scenario "user removes an inbox" do
+    create(:inbox, name: "My test inbox", account: account)
+
     sign_in user
     visit root_path
 

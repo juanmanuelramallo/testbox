@@ -21,7 +21,7 @@ class Inbox < ApplicationRecord
 
   validates :name, :identifier, presence: true
   validates :identifier, uniqueness: true
-  validates :name, uniqueness: { scope_to: :account_id }
+  validates :name, uniqueness: {scope: :account_id}
 
   has_many :inbox_emails, dependent: :destroy
   has_many :inbound_emails, through: :inbox_emails, dependent: :destroy

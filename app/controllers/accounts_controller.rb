@@ -7,7 +7,8 @@ class AccountsController < ApplicationController
     @account = current_user.accounts.new(account_params)
     if @account.save
       @account.users << current_user
-      redirect_to [@account, :inboxes], notice: "Account created successfully."
+      inbox = @account.inboxes.create!(name: "My test inbox")
+      redirect_to [@account, inbox, :inbound_emails], notice: "Account created successfully."
     else
       render :new
     end

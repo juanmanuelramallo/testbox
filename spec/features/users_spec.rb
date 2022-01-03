@@ -19,5 +19,6 @@ RSpec.describe "New users" do
     click_on "Create Account"
 
     expect(page).to have_text("Account created successfully.")
+    expect(page).to have_text("My test inbox")
   end
 end

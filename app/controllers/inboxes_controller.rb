@@ -11,6 +11,21 @@ class InboxesController < ApplicationController
   def create
     @new_inbox = current_account.inboxes.new(inbox_params)
 
+    if current_account.inboxes.count > 0
+      @new_inbox.errors.add(:base, "Please upgrade your account. Max number of inboxes reached.")
+      respond_to do |format|
+        format.html { redirect_to current_account, alert: "Please upgrade your account." }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace(
+            "new_inbox",
+            partial: "inboxes/form",
+            locals: {new_inbox: @new_inbox}
+          )
+        end
+      end
+      return
+    end
+
     respond_to do |format|
       if @new_inbox.save
         format.html { redirect_to account_inbox_inbound_emails_path(current_account, @new_inbox), notice: "Inbox created successfully." }

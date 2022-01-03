@@ -14,7 +14,7 @@
 #  index_account_users_on_user_id     (user_id)
 #
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe AccountUser, type: :model do
 end

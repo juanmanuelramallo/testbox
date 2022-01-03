@@ -1,5 +1,5 @@
 <% if @inboxes.empty? %>
-  <div class="mb-6 p-3 bg-blue-50 text-gray-700 rounded-lg">
+  <div class="mb-6 p-3 bg-blue-50 text-gray-700 rounded-lg" id="empty_message" role="alert">
     Create a test inbox where to send your emails.
 
     <%= render "form", new_inbox: Inbox.new %>

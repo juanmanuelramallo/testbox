@@ -1,4 +1,5 @@
 <%= simple_form_for [current_account, new_inbox], html: { class: "" } do |f| %>
+  <%= f.error :base %>
   <div class="flex flex-row">
     <%= f.input :name,
       label: false,

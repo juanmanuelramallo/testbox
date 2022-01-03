@@ -3,10 +3,10 @@ module Madmin
     # before_action :authenticate_admin_user
 
     # def authenticate_admin_user
-      # TODO: Add your authentication logic here
+    # TODO: Add your authentication logic here
 
-      # For example, we could redirect if the user isn't an admin
-      # redirect_to "/", alert: "Not authorized." unless user_signed_in? && current_user.admin?
+    # For example, we could redirect if the user isn't an admin
+    # redirect_to "/", alert: "Not authorized." unless user_signed_in? && current_user.admin?
     # end
 
     # Authenticate with Clearance

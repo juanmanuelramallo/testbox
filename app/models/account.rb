@@ -10,7 +10,6 @@
 
 class Account < ApplicationRecord
   validates :name, presence: true
-  validates :name, uniqueness: true
 
   has_many :inboxes, dependent: :destroy
   has_many :account_users, dependent: :destroy

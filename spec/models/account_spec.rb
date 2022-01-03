@@ -8,7 +8,7 @@
 #  updated_at :datetime         not null
 #
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Account, type: :model do
 end
