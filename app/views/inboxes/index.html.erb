@@ -1,5 +1,5 @@
 <% if @inboxes.empty? %>
-  <div class="mb-6 p-3 bg-blue-50 text-gray-700 rounded-lg" id="empty_message" role="alert">
+  <div class="md:w-96 md:ml-2 mb-6 p-3 bg-blue-50 text-gray-700 rounded-lg" id="empty_message" role="alert">
     Create a test inbox where to send your emails.
 
     <%= render "form", new_inbox: Inbox.new %>
@@ -8,7 +8,7 @@
 
 <div class="grid md:grid-cols-10 grid-cols-1 gap-1">
   <!-- Inboxes -->
-  <div class="col-span-2">
+  <div class="md:col-span-2">
     <p class="text-xs text-gray-300 mb-2">Inboxes</p>
     <%= turbo_frame_tag "inboxes" do %>
       <% @inboxes.each do |inbox| %>
@@ -18,13 +18,13 @@
   </div>
 
   <!-- Emails -->
-  <div class="col-span-2">
+  <div class="md:col-span-2">
     <p class="text-xs text-gray-300 mb-2">Emails</p>
     <%= turbo_frame_tag "inbound_emails" %>
   </div>
 
   <!-- Email body -->
-  <div class="col-span-6">
+  <div class="md:col-span-6">
     <p class="text-xs text-gray-300 mb-2">Email</p>
     <%= turbo_frame_tag "inbound_email" %>
   </div>

@@ -1,6 +1,6 @@
 <div class="grid md:grid-cols-10 grid-cols-1 gap-1">
   <!-- Inboxes -->
-  <div class="col-span-2">
+  <div class="md:col-span-2">
     <p class="text-xs text-gray-300 mb-2">Inboxes</p>
     <%= turbo_frame_tag "inboxes", src: account_inboxes_path(current_account) do %>
       <%= render "application/loader" %>
@@ -8,7 +8,7 @@
   </div>
 
   <!-- Emails -->
-  <div class="col-span-2">
+  <div class="md:col-span-2">
     <p class="text-xs text-gray-300 mb-2">Emails</p>
     <%= turbo_frame_tag "inbound_emails", src: account_inbox_inbound_emails_path(current_account, @inbox) do %>
       <%= render "application/loader" %>
@@ -16,7 +16,7 @@
   </div>
 
   <!-- Email body -->
-  <div class="col-span-6">
+  <div class="md:col-span-6">
     <p class="text-xs text-gray-300 mb-2">Email</p>
     <%= turbo_frame_tag "inbound_email" do %>
       <%= render "inbound_email", inbound_email: @inbound_email, inbox: @inbox %>

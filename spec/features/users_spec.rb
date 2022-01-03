@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "New users" do
+RSpec.describe "New users", js: true do
   scenario "user signs up and creates a new account" do
     visit root_path
 

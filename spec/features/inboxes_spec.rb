@@ -18,11 +18,6 @@ RSpec.describe "Inboxes", js: true do
     end
 
     expect(page).to have_text("My new test inbox")
-
-    fill_in "inbox[name]", with: "My new test inbox"
-    click_on "Create Inbox"
-
-    expect(page).to have_text("Please upgrade your account. Max number of inboxes reached.")
   end
 
   scenario "user removes an inbox" do
