@@ -1,17 +1,17 @@
 <% if user_signed_in? && controller_name != "accounts" %>
   <div class="px-5 py-4 bg-gray-50 flex flex-row">
     <div class="flex-1">
-      <% d_group_classes = "mb-2" %>
+      <% d_group_classes = "mb-2 #{defined?(@inbox) ? "" : "opacity-40"}" %>
       <% dt_classes = "text-xs text-gray-400" %>
       <% dd_classes = "text-gray-600" %>
 
-      <% if defined?(@inbox) %>
-        <div class="<%= d_group_classes %> flex flex-row">
-          <div>
-            <dt class="<%= dt_classes %>">Inbox name</dt>
-            <dd class="<%= dd_classes %>"><%= @inbox.name %></dd>
-          </div>
+      <div class="<%= d_group_classes %> flex flex-row">
+        <div>
+          <dt class="<%= dt_classes %>">Inbox name</dt>
+          <dd class="<%= dd_classes %>"><%= defined?(@inbox) ? @inbox.name : "-" %></dd>
+        </div>
 
+        <% if defined?(@inbox) %>
           <%= button_to @inbox, method: :delete, data: { turbo: false },
             class: "h-6 w-6 text-gray-600 hover:text-blue-600",
             form_class: "ml-4 mt-auto",
@@ -20,13 +20,13 @@
               <%= inline_svg_tag "icons/trash.svg" %>
             </span>
           <% end %>
-        </div>
+        <% end %>
+      </div>
 
-        <div class="<%= d_group_classes %>">
-          <dt class="<%= dt_classes %>">Send your test emails to</dt>
-          <dd class="<%= dd_classes %>"><%= @inbox.address %></dd>
-        </div>
-      <% end %>
+      <div class="<%= d_group_classes %>">
+        <dt class="<%= dt_classes %>">Send your test emails to</dt>
+        <dd class="<%= dd_classes %>"><%= defined?(@inbox) ? @inbox.address : "-" %></dd>
+      </div>
     </div>
 
     <%# <div> %>
